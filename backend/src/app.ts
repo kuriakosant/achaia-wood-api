@@ -16,4 +16,4 @@ mongoose.connect(process.env.MONGO_URI || '')
 // Routes
 app.use('/api', productRoutes);
 
-export default app;
+ 
