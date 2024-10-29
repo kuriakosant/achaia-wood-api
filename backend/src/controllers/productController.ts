@@ -13,7 +13,7 @@ export const getProducts = async (req: Request, res: Response) => {
 export const createProduct = async (req: Request, res: Response) => {
   const { name, category, price, description, features, image } = req.body;
   try {
-    const [result] = await pool.query(
+    const [result]: any = await pool.query(
       'INSERT INTO products (name, category, price, description, features, image) VALUES (?, ?, ?, ?, ?, ?)',
       [name, category, price, description, JSON.stringify(features), image]
     );
