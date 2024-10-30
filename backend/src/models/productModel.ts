@@ -1,12 +1,45 @@
-import mongoose from 'mongoose';
+import { Sequelize, DataTypes, Model } from 'sequelize';
+import { sequelize } from '../db';
 
-const productSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  category: { type: String, required: true },
-  price: { type: Number, required: true },
-  description: { type: String },
-  features: [String],
-  image: { type: String },
-}, { timestamps: true });
+interface ProductAttributes {
+  id?: number;
+  name: string;
+  price: number;
+  description: string;
+}
 
-export const Product = mongoose.model('Product', productSchema);
+class Product extends Model<ProductAttributes> implements ProductAttributes {
+  public id!: number;
+  public name!: string;
+  public price!: number;
+  public description!: string;
+}
+
+Product.init(
+  {
+    id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    name: {
+      type: new DataTypes.STRING(255),
+      allowNull: false,
+    },
+    price: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    description: {
+      type: new DataTypes.STRING(255),
+      allowNull: false,
+    },
+  },
+  {
+    tableName: 'products',
+    sequelize, // passing the sequelize instance
+    timestamps: false, // assuming no createdAt, updatedAt fields
+  }
+);
+
+export default Product;
