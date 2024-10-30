@@ -1,16 +1,17 @@
-import mysql from 'mysql2/promise';
-import dotenv from 'dotenv';
+import { Sequelize } from 'sequelize';
 
-dotenv.config();
-
-const pool = mysql.createPool({
-  host: process.env.DB_HOST || 'localhost',
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '',
-  database: process.env.DB_NAME || 'woodshop',
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
+// Database connection details
+export const sequelize = new Sequelize('achaia_wood_db', 'username', 'password', {
+  host: 'localhost',
+  dialect: 'mysql',
+  logging: false, // Disable logging, set to true to enable
 });
 
-export default pool;
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Database connection established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+})();
