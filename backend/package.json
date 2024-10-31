@@ -12,10 +12,12 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@types/sequelize": "^4.28.20",
     "body-parser": "^1.20.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "mysql2": "^3.11.5"
+    "mysql2": "^3.11.5",
+    "sequelize": "^6.37.5"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",

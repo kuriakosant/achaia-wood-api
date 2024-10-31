@@ -1,29 +1,34 @@
-import { Sequelize, DataTypes, Model } from 'sequelize';
-import { sequelize } from '../db';
+// src/models/productModel.ts
+
+import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
+import { sequelize } from '../db'; // Import the Sequelize instance
 
 interface ProductAttributes {
-  id?: number;
+  id: number;
   name: string;
   price: number;
   description: string;
 }
 
-class Product extends Model<ProductAttributes> implements ProductAttributes {
-  public id!: number;
-  public name!: string;
-  public price!: number;
-  public description!: string;
+interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'> {}
+
+export class Product extends Model<ProductAttributes, ProductCreationAttributes> implements ProductAttributes {
+  id!: number;
+  name!: string;
+  price!: number;
+  description!: string;
 }
 
+// Initialize the Product model
 Product.init(
   {
     id: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
     name: {
-      type: new DataTypes.STRING(255),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     price: {
@@ -31,15 +36,13 @@ Product.init(
       allowNull: false,
     },
     description: {
-      type: new DataTypes.STRING(255),
+      type: DataTypes.TEXT,
       allowNull: false,
     },
   },
   {
+    sequelize, // Passing the Sequelize instance
     tableName: 'products',
-    sequelize, // passing the sequelize instance
-    timestamps: false, // assuming no createdAt, updatedAt fields
+    timestamps: true,
   }
 );
-
-export default Product;
