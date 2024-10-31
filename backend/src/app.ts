@@ -1,19 +1,20 @@
 import express from 'express';
 import productRoutes from './routes/productRoutes';
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import { sequelize } from './db'; // Import MySQL connection
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI || '')
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((error) => console.log(error));
+// Test database connection
+sequelize
+  .authenticate()
+  .then(() => console.log('Connected to MySQL database'))
+  .catch((err) => console.error('Failed to connect to MySQL:', err));
 
 // Routes
 app.use('/api', productRoutes);
 
- 
+export default app;
