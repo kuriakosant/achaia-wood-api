@@ -1,25 +1,23 @@
-// src/models/productModel.ts
+import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import sequelize from '../sequelize'; // Import your Sequelize instance here
 
-import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
-import { sequelize } from '../db'; // Import the Sequelize instance
-
-interface ProductAttributes {
+export interface ProductAttributes {
   id: number;
   name: string;
   price: number;
   description: string;
 }
 
-interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'> {}
+export interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'> {}
 
 export class Product extends Model<ProductAttributes, ProductCreationAttributes> implements ProductAttributes {
-  id!: number;
-  name!: string;
-  price!: number;
-  description!: string;
+  public id!: number;
+  public name!: string;
+  public price!: number;
+  public description!: string;
 }
 
-// Initialize the Product model
+// Initialize model
 Product.init(
   {
     id: {
@@ -41,7 +39,7 @@ Product.init(
     },
   },
   {
-    sequelize, // Passing the Sequelize instance
+    sequelize, // Use the Sequelize instance
     tableName: 'products',
     timestamps: true,
   }

@@ -1,12 +1,10 @@
-// src/controllers/productController.ts
-
 import { Request, Response } from 'express';
-import { Product } from '../models/productModel'; // Import the Product model
+import { Product } from '../models/productModel';
 
 // Get all products
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const products = await Product.findAll(); // Correct method to fetch data
+    const products = await Product.findAll(); // Correct method for fetching all products
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching products', error });
