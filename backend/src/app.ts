@@ -1,10 +1,13 @@
 import express from 'express';
+import cors from 'cors';
 import productRoutes from './routes/productRoutes';
+import authRoutes from './routes/authRoutes';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 // Test database connection
@@ -16,5 +19,6 @@ sequelize
 
 // Routes
 app.use('/api', productRoutes);
+app.use('/api/auth', authRoutes);
 
 export default app;
