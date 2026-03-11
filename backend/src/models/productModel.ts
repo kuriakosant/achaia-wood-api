@@ -6,15 +6,21 @@ export interface ProductAttributes {
   name: string;
   price: number;
   description: string;
+  category?: string;
+  features?: string[];
+  image?: string;
 }
 
-export interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'> {}
+export interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'> { }
 
 export class Product extends Model<ProductAttributes, ProductCreationAttributes> implements ProductAttributes {
   public id!: number;
   public name!: string;
   public price!: number;
   public description!: string;
+  public category?: string;
+  public features?: string[];
+  public image?: string;
 }
 
 // Initialize model
@@ -36,6 +42,18 @@ Product.init(
     description: {
       type: DataTypes.TEXT,
       allowNull: false,
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    features: {
+      type: DataTypes.JSON, // Use JSON for array storage
+      allowNull: true,
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   {
