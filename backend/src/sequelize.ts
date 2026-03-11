@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize';
 import * as dotenv from 'dotenv';
+import 'pg'; // Force Vercel NFT to bundle the PostgreSQL driver
 
 dotenv.config();
 
