@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
-// Using environment variables for simple, secure deployment on Vercel/Render
-// Fallbacks provided for local testing but should NOT be used in production.
-const ADMIN_PASSPHRASE = process.env.ADMIN_PASSPHRASE || 'achaia-admin-secret-2026';
-const JWT_SECRET = process.env.JWT_SECRET || 'super-secure-jwt-secret-key';
+// Using environment variables for secure deployment on Render/Vercel
+// Fallbacks removed for public repository security.
+const ADMIN_PASSPHRASE = process.env.ADMIN_PASSPHRASE as string;
+const JWT_SECRET = process.env.JWT_SECRET as string;
 
 export const loginAdmin = (req: Request, res: Response): void => {
     const { passphrase } = req.body;

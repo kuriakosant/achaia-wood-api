@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'super-secure-jwt-secret-key';
+const JWT_SECRET = process.env.JWT_SECRET as string;
 
 export const verifyToken = (req: Request, res: Response, next: NextFunction): void => {
     const authHeader = req.headers.authorization;
