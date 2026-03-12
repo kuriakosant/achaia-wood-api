@@ -26,7 +26,7 @@ app.get('/favicon.ico', (req, res) => { res.status(204).end(); });
 app.get('/favicon.png', (req, res) => { res.status(204).end(); });
 
 // Routes
-app.use('/api', productRoutes);
-app.use('/api/auth', authRoutes);
+app.use(['/api/products', '/products'], productRoutes);
+app.use(['/api/auth', '/auth'], authRoutes);
 
 export default app;
