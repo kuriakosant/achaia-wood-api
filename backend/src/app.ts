@@ -14,7 +14,11 @@ app.use(express.json());
 import sequelize from './sequelize'; // Import your Sequelize instance here
 sequelize
   .authenticate()
-  .then(() => console.log('Connected to PostgreSQL database'))
+  .then(() => {
+    console.log('Connected to PostgreSQL database');
+    return sequelize.sync({ alter: true });
+  })
+  .then(() => console.log('Database synced successfully'))
   .catch((err) => console.error('Failed to connect to PostgreSQL:', err));
 
 // Health Check & Root Route
