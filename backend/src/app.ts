@@ -2,13 +2,15 @@ import express from 'express';
 import cors from 'cors';
 import productRoutes from './routes/productRoutes';
 import authRoutes from './routes/authRoutes';
+import categoryRoutes from './routes/categoryRoutes';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Test database connection
 import sequelize from './sequelize'; // Import your Sequelize instance here
@@ -31,6 +33,7 @@ app.get('/favicon.png', (req, res) => { res.status(204).end(); });
 
 // Routes
 app.use(['/api/products', '/products'], productRoutes);
+app.use(['/api/categories', '/categories'], categoryRoutes);
 app.use(['/api/auth', '/auth'], authRoutes);
 
 export default app;

@@ -28,9 +28,9 @@ export const getProductById = async (req: Request, res: Response) => {
 
 // Create a new product
 export const createProduct = async (req: Request, res: Response) => {
-  const { name, price, description, category, features, image } = req.body;
+  const { name, price, description, category, features, image, gallery } = req.body;
   try {
-    const newProduct = await Product.create({ name, price, description, category, features, image }); // Correct way to create a product
+    const newProduct = await Product.create({ name, price, description, category, features, image, gallery }); // Correct way to create a product
     res.status(201).json(newProduct);
   } catch (error) {
     res.status(500).json({ message: 'Error creating product', error });
@@ -40,7 +40,7 @@ export const createProduct = async (req: Request, res: Response) => {
 // Update a product
 export const updateProduct = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { name, price, description, category, features, image } = req.body;
+  const { name, price, description, category, features, image, gallery } = req.body;
 
   try {
     const product = await Product.findByPk(id); // Find product by ID
@@ -51,6 +51,7 @@ export const updateProduct = async (req: Request, res: Response) => {
       if (category !== undefined) product.category = category;
       if (features !== undefined) product.features = features;
       if (image !== undefined) product.image = image;
+      if (gallery !== undefined) product.gallery = gallery;
       await product.save(); // Correct method to update
       res.status(200).json(product);
     } else {
