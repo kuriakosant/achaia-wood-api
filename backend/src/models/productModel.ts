@@ -9,6 +9,7 @@ export interface ProductAttributes {
   category?: string;
   features?: string[];
   image?: string;
+  gallery?: string[];
 }
 
 export interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'> { }
@@ -21,6 +22,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
   public category?: string;
   public features?: string[];
   public image?: string;
+  public gallery?: string[];
 }
 
 // Initialize model
@@ -52,9 +54,14 @@ Product.init(
       allowNull: true,
     },
     image: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT('long'), // Allow huge base64 strings
       allowNull: true,
     },
+    gallery: {
+      type: DataTypes.JSON, // Array of base64 strings
+      allowNull: true,
+      defaultValue: []
+    }
   },
   {
     sequelize, // Use the Sequelize instance
