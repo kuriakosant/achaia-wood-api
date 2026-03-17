@@ -10,6 +10,7 @@ export interface ProductAttributes {
   features?: string[];
   image?: string;
   gallery?: string[];
+  isFeatured?: boolean;
 }
 
 export interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'> { }
@@ -23,6 +24,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
   public features?: string[];
   public image?: string;
   public gallery?: string[];
+  public isFeatured?: boolean;
 }
 
 // Initialize model
@@ -61,6 +63,11 @@ Product.init(
       type: DataTypes.JSON, // Array of base64 strings
       allowNull: true,
       defaultValue: []
+    },
+    isFeatured: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
     }
   },
   {
