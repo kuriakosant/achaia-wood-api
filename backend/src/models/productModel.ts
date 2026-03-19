@@ -51,7 +51,7 @@ Product.init(
     },
     category: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     features: {
       type: DataTypes.JSON, // Use JSON for array storage
