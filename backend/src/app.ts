@@ -4,6 +4,7 @@ import productWoodRoutes from './routes/productWoodRoutes';
 import productGalleryRoutes from './routes/productGalleryRoutes';
 import categoryWoodRoutes from './routes/categoryWoodRoutes';
 import categoryGalleryRoutes from './routes/categoryGalleryRoutes';
+import orderRoutes from './routes/orderRoutes';
 import authRoutes from './routes/authRoutes';
 import dotenv from 'dotenv';
 
@@ -38,6 +39,7 @@ app.use(['/api/wood-products', '/wood-products'], productWoodRoutes);
 app.use(['/api/gallery-products', '/gallery-products'], productGalleryRoutes);
 app.use(['/api/wood-categories', '/wood-categories'], categoryWoodRoutes);
 app.use(['/api/gallery-categories', '/gallery-categories'], categoryGalleryRoutes);
+app.use(['/api/orders', '/orders'], orderRoutes);
 app.use(['/api/auth', '/auth'], authRoutes);
 
 export default app;
