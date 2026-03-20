@@ -15,8 +15,15 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
+// Import all models to ensure tables are created/synced on startup
+import './models/productWoodModel';
+import './models/productGalleryModel';
+import './models/categoryWoodModel';
+import './models/categoryGalleryModel';
+import './models/orderModel';
+
 // Test database connection
-import sequelize from './sequelize'; // Import your Sequelize instance here
+import sequelize from './sequelize';
 sequelize
   .authenticate()
   .then(() => {
