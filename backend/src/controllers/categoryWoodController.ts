@@ -1,36 +1,34 @@
 import { Request, Response } from 'express';
-import { Category } from '../models/categoryModel';
+import { CategoryWood } from '../models/categoryWoodModel';
 
-// Get all categories
-export const getAllCategories = async (req: Request, res: Response) => {
+export const getWoodCategories = async (req: Request, res: Response) => {
   try {
-    const categories = await Category.findAll({ order: [['name', 'ASC']] });
+    const categories = await CategoryWood.findAll();
     res.status(200).json(categories);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching categories', error });
   }
 };
 
-// Create a new category
-export const createCategory = async (req: Request, res: Response) => {
-  const { name } = req.body;
+export const createWoodCategory = async (req: Request, res: Response) => {
+  const { name, level, parentId } = req.body;
   try {
-    const newCategory = await Category.create({ name });
+    const newCategory = await CategoryWood.create({ name, level, parentId });
     res.status(201).json(newCategory);
   } catch (error) {
-    res.status(500).json({ message: 'Error creating category. Name might exist.', error });
+    res.status(500).json({ message: 'Error creating category', error });
   }
 };
 
-// Update a category
-export const updateCategory = async (req: Request, res: Response) => {
+export const updateWoodCategory = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { name } = req.body;
-
+  const { name, level, parentId } = req.body;
   try {
-    const category = await Category.findByPk(id);
+    const category = await CategoryWood.findByPk(id);
     if (category) {
       category.name = name;
+      category.level = level !== undefined ? level : category.level;
+      category.parentId = parentId !== undefined ? parentId : category.parentId;
       await category.save();
       res.status(200).json(category);
     } else {
@@ -41,11 +39,10 @@ export const updateCategory = async (req: Request, res: Response) => {
   }
 };
 
-// Delete a category
-export const deleteCategory = async (req: Request, res: Response) => {
+export const deleteWoodCategory = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const category = await Category.findByPk(id);
+    const category = await CategoryWood.findByPk(id);
     if (category) {
       await category.destroy();
       res.status(200).json({ message: 'Category deleted successfully' });

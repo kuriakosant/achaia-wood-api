@@ -1,8 +1,10 @@
 import express from 'express';
 import cors from 'cors';
-import productRoutes from './routes/productRoutes';
+import productWoodRoutes from './routes/productWoodRoutes';
+import productGalleryRoutes from './routes/productGalleryRoutes';
+import categoryWoodRoutes from './routes/categoryWoodRoutes';
+import categoryGalleryRoutes from './routes/categoryGalleryRoutes';
 import authRoutes from './routes/authRoutes';
-import categoryRoutes from './routes/categoryRoutes';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -32,8 +34,10 @@ app.get('/favicon.ico', (req, res) => { res.status(204).end(); });
 app.get('/favicon.png', (req, res) => { res.status(204).end(); });
 
 // Routes
-app.use(['/api/products', '/products'], productRoutes);
-app.use(['/api/categories', '/categories'], categoryRoutes);
+app.use(['/api/wood-products', '/wood-products'], productWoodRoutes);
+app.use(['/api/gallery-products', '/gallery-products'], productGalleryRoutes);
+app.use(['/api/wood-categories', '/wood-categories'], categoryWoodRoutes);
+app.use(['/api/gallery-categories', '/gallery-categories'], categoryGalleryRoutes);
 app.use(['/api/auth', '/auth'], authRoutes);
 
 export default app;
